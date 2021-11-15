@@ -604,6 +604,7 @@ class Cube:
 
         self.cube_method_3d_drawer()
         #test
+
     def cube_method_flipper(self,dir_of_flip="x"):
         if dir_of_flip=="x":
             # def R(self): # x y z koordináták, z=0 front, x=2 right
