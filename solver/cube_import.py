@@ -108,7 +108,7 @@ class Cube:
 
         for i in self.l[2,:,:]:
             for j in i:
-                print(j)
+                #print(j)
                 self.dict_of_num_cubie[j].RL() # minden forgatott cubie saját helyzetét is megváltoztatja
 
         self.l[2,:,:]=self.l[2,:,:].transpose() # jobbra forg T aztán oszlopcsere
@@ -144,7 +144,7 @@ class Cube:
 
       for i in self.l[2,:,:]:
             for j in i:
-                print(j)
+                #print(j)
                 self.dict_of_num_cubie[j].UD()
 
       self.l[2,:,:]=self.l[2,:,:].transpose() # jobbra forg T aztán oszlopcsere
@@ -172,7 +172,7 @@ class Cube:
 
       for i in self.l[2,:,:]:
             for j in i:
-                print(j)
+                #print(j)
                 self.dict_of_num_cubie[j].FB()
 
       self.l[2,:,:]=self.l[2,:,:].transpose() # jobbra forg T aztán oszlopcsere
@@ -509,17 +509,17 @@ class Cube:
                 if current_step_string=="B":
                     self.B()
                 if current_step_string=="r":
-                    self.R()
+                    self.R_r()
                 if current_step_string=="l":
-                    self.L()
+                    self.L_r()
                 if current_step_string=="u":
-                    self.U()
+                    self.U_r()
                 if current_step_string=="d":
-                    self.D()
+                    self.D_r()
                 if current_step_string=="f":
-                    self.F()
+                    self.F_r()
                 if current_step_string=="b":
-                    self.B()
+                    self.B_r()
                 pygame.time.wait(1000)
                 steps_current_pos+=1
 
@@ -643,5 +643,55 @@ class Cube:
             self.l[:,0,:]=self.l[:,0,:].transpose() # jobbra forg T aztán oszlopcsere
             self.l[:,0,[0,2]]=self.l[:,0,[2,0]]
 
+    def cube_method_one_char_to_move(self,current_step_string):
+        if current_step_string=="R":
+            self.R()
+        if current_step_string=="L":
+            self.L()
+        if current_step_string=="U":
+            self.U()
+        if current_step_string=="D":
+            self.D()
+        if current_step_string=="F":
+            self.F()
+        if current_step_string=="B":
+            self.B()
+        if current_step_string=="r":
+            self.R_r()
+        if current_step_string=="l":
+            self.L_r()
+        if current_step_string=="u":
+            self.U_r()
+        if current_step_string=="d":
+            self.D_r()
+        if current_step_string=="f":
+            self.F_r()
+        if current_step_string=="b":
+            self.B_r()
+
+    def cube_method_did_cubie_move(self,current_step_string,cubieposnum):
+
+        did_it_turn=False
+
+        koord1=int(cubieposnum[0])
+        koord2=int(cubieposnum[1])
+        koord3=int(cubieposnum[2])
+
+        temp=self.l[koord1][koord2][koord3]
+
+        self.cube_method_one_char_to_move(current_step_string)
+
+        if self.dict_of_num_cubie[cubieposnum].l!=temp:
+            print('MOZDULT')
+            did_it_turn=True
+            self.cube_method_one_char_to_move(current_step_string)
+            self.cube_method_one_char_to_move(current_step_string)
+            self.cube_method_one_char_to_move(current_step_string)
+
+        else:
+            print('Nomove')
+
+        return did_it_turn
 
 
+    def
