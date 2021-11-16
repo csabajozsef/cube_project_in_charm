@@ -29,7 +29,7 @@ def adjust_color_middle_to_face(c, middlecolor, side_to_flip_to):
                     dict_of_middles[dict_of_num_color[color]]=tup[0]
     print(dict_of_middles) # dictben van a color és a position
     dict_of_middle_sides={'L': [0, 1, 1], 'U': [1, 0, 1], 'F': [1, 1, 0], 'B': [1, 1, 2], 'D': [1, 2, 1], 'R': [2, 1, 1]}
-    steps=["x","x","x","x","y","y","y","y"]
+    steps=["x","x","x","x","y","y","y","y","x","y","y","y","y","x","y","y","y","y","x","y","y","y","y","x","y","y","y","y","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x"]
     stepper=0
     while dict_of_middles[middlecolor]!=dict_of_middle_sides[side_to_flip_to]:
         c.cube_method_flipper(steps[stepper])
@@ -42,8 +42,10 @@ def adjust_color_middle_to_face(c, middlecolor, side_to_flip_to):
                     if color!=-1:
                         dict_of_middles[dict_of_num_color[color]]=tup[0]
 
-
         print("stepper: ", stepper)
+        print((dict_of_middles))
+        print("sides: ")
+        print(dict_of_middle_sides)
         stepper+=1
         if stepper>=len(steps):
             print("NOOOO")
