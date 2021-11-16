@@ -281,10 +281,10 @@ class Cube:
         tuples_of_strings=[]
         counter_of_sides=0
         for i in range(0,len(string),9):
-            print(string[i:i+9])
+            #print(string[i:i+9])
             tuples_of_strings.append((string[i:i+9],sorrend[counter_of_sides],sides[counter_of_sides]))
             counter_of_sides+=1
-            print(tuples_of_strings)
+            #print(tuples_of_strings)
             # minde 3 koord lehet 0 1 2 ez 3*3*3 aza 27 koord amik a cubiek
             # oldalak:x - 0:: , 2::
             #    z- ::0 ::2
@@ -296,7 +296,7 @@ class Cube:
 
         for i in sides: #
             ninestring=tuples_of_strings[index][0]
-            print(ninestring)
+            #print(ninestring)
             #index+=1
             # i a sor
             #print(i)
@@ -313,7 +313,7 @@ class Cube:
                     if tuples_of_strings[index][1]=="F" or tuples_of_strings[index][1]=="B":
                         self.dict_of_num_cubie[k].l[2]=dict_of_color_num[ninestring[stringindex]] # 0 mert a cubie 0.eleme az x koord,
 
-                    print(self.dict_of_num_cubie[k])
+                    #print(self.dict_of_num_cubie[k])
                     #cube.dict_of_num_cubie[j].L()
                     #print(cube.dict_of_num_cubie[j])
                     stringindex+=1
@@ -606,14 +606,15 @@ class Cube:
         #test
 
     def cube_method_flipper(self,dir_of_flip="x"):
+        '''Input x vagy z szerint forgatja az egész kockát  '''
         if dir_of_flip=="x":
             # def R(self): # x y z koordináták, z=0 front, x=2 right
             for i in self.l[:,:,:]:
-                print(i)
+                # print(i)
                 for j in i:
-                    print(j)
+                    # print(j)
                     for k in j:
-                        print(k)
+                        # print(k)
                         self.dict_of_num_cubie[k].RL() # minden forgatott cubie saját helyzetét is megváltoztatja
 
             self.l[2,:,:]=self.l[2,:,:].transpose() # jobbra forg T aztán oszlopcsere
@@ -628,11 +629,11 @@ class Cube:
         if dir_of_flip=="y":
             # def R(self): # x y z koordináták, z=0 front, x=2 right
             for i in self.l[:,:,:]:
-                print(i)
+                # print(i)
                 for j in i:
-                    print(j)
+                    # print(j)
                     for k in j:
-                        print(k)
+                        # print(k)
                         self.dict_of_num_cubie[k].UD() # minden forgatott cubie saját helyzetét is megváltoztatja
 
             self.l[:,2,:]=self.l[:,2,:].transpose() # jobbra forg T aztán oszlopcsere
@@ -645,6 +646,7 @@ class Cube:
             self.l[:,0,[0,2]]=self.l[:,0,[2,0]]
 
     def cube_method_one_char_to_move(self,current_step_string):
+        '''Bejön egy karakter és megcsinálja belőle a lépést, x y flipre is működik'''
         if current_step_string=="R":
             self.R()
         if current_step_string=="L":
@@ -669,9 +671,35 @@ class Cube:
             self.F_r()
         if current_step_string=="b":
             self.B_r()
+        if current_step_string=="x":
+            self.cube_method_flipper('x')
+        if current_step_string=="y":
+            self.cube_method_flipper('y')
+
+    def cube_method_get_cubie_pos_name_color(self):
+        '''visszadob egy listet amiben tupleként vannak a
+        (kockakoord, ottlévő cubie string,cubie.l) alakban a lekérdezés pillanatában!!
+        '''
+        list_of_tuples=[]
+        firstkoord=0
+        for i in self.l:
+            secondkoord=0
+            for j in i:
+                thirdkoord=0
+                for k in j:
+                    # print(k)
+                    # print([firstkoord,secondkoord,thirdkoord])
+                    list_of_tuples.append(([firstkoord,secondkoord,thirdkoord],k,self.dict_of_num_cubie[k].l))
+                    thirdkoord+=1
+                secondkoord+=1
+            firstkoord+=1
+        return list_of_tuples
 
     def cube_method_did_cubie_move(self,current_step_string,cubieposnum):
-
+        '''Input egy step string pl F,R stb és egy cubie location,
+        a fgv megmondja, hogy a lépés hatására mozgott-e a cubie azon a posin
+        tehát ezzel tudjuk ellenőrizni h egy adott cubie location mozog egy lépés hatására
+        azaz pl 0 0 0 F-en van-e'''
         did_it_turn=False
 
         koord1=int(cubieposnum[0])
@@ -694,5 +722,3 @@ class Cube:
 
         return did_it_turn
 
-
-    def
