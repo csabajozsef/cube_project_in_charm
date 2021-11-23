@@ -1,4 +1,3 @@
-
 import random
 import numpy as np
 import pygame
@@ -33,6 +32,7 @@ class Cubie:
 class Cube:
 
     def __init__(self,x=[[[str(k)+str(j)+str(i) for i in range(3)] for j in range(3)]for k in range(3)]): # ide kell immutabel inicializálás, fix tárhely miatt
+        self.historystring=""
         self.l=np.array(x) #itt ha self.l=x volt akkor az a mindegyiknél létrejövő x=np.array([[[]]]) re mutatott?
         self.dict_of_num_cubie={}
         self.dict_of_cubie_num={}
@@ -105,7 +105,7 @@ class Cube:
         pass
 
     def R(self): # x y z koordináták, z=0 front, x=2 right
-
+        self.historystring+="R"
         for i in self.l[2,:,:]:
             for j in i:
                 #print(j)
@@ -115,7 +115,7 @@ class Cube:
         self.l[2,:,[0,2]]=self.l[2,:,[2,0]]
 
     def L(self):
-
+        self.historystring+="L"
         for i in self.l[0,:,:]:
             for j in i:
                 #print(j)
@@ -125,7 +125,7 @@ class Cube:
         self.l[0,:,[2,0]]=self.l[0,:,[0,2]]
 
     def U(self):
-
+      self.historystring+="U"
       self.X_to_Y()
 
       for i in self.l[0,:,:]:
@@ -139,7 +139,7 @@ class Cube:
       self.Y_to_X()
 
     def D(self):
-
+      self.historystring+="D"
       self.X_to_Y()
 
       for i in self.l[2,:,:]:
@@ -153,7 +153,7 @@ class Cube:
       self.Y_to_X()
 
     def F(self):
-
+      self.historystring+="F"
       self.X_to_Z()
 
       for i in self.l[0,:,:]:
@@ -167,7 +167,7 @@ class Cube:
       self.Z_to_X()
 
     def B(self):
-
+      self.historystring+="B"
       self.X_to_Z()
 
       for i in self.l[2,:,:]:
@@ -181,32 +181,32 @@ class Cube:
       self.Z_to_X()
 
     def R_r(self):
-
+      self.historystring+="r"
       for i in range(3):
         self.R()
 
     def L_r(self):
-
+      self.historystring+="l"
       for i in range(3):
         self.L()
 
     def U_r(self):
-
+      self.historystring+="u"
       for i in range(3):
         self.U()
 
     def D_r(self):
-
+      self.historystring+="d"
       for i in range(3):
         self.D()
 
     def F_r(self):
-
+      self.historystring+="f"
       for i in range(3):
         self.F()
 
     def B_r(self):
-
+      self.historystring+="b"
       for i in range(3):
         self.B()
 
@@ -254,17 +254,21 @@ class Cube:
             if current_step_string=="B":
                 self.B()
             if current_step_string=="r":
-                self.R()
+                self.R_r()
             if current_step_string=="l":
-                self.L()
+                self.L_r()
             if current_step_string=="u":
-                self.U()
+                self.U_r()
             if current_step_string=="d":
-                self.D()
+                self.D_r()
             if current_step_string=="f":
-                self.F()
+                self.F_r()
             if current_step_string=="b":
-                self.B()
+                self.B_r()
+            if current_step_string=="x":
+                self.cube_method_flipper("x")
+            if current_step_string=="y":
+                self.cube_method_flipper("y")
 
     def cube_method_all_side_loader(self,string="".join(["W"*9,"Y"*9,"O"*9,"G"*9,"R"*9,"B"*9])):
         # alapállapotba betölti a kockát
@@ -608,6 +612,7 @@ class Cube:
     def cube_method_flipper(self,dir_of_flip="x"):
         '''Input x vagy z szerint forgatja az egész kockát  '''
         if dir_of_flip=="x":
+            self.historystring+="x"
             # def R(self): # x y z koordináták, z=0 front, x=2 right
             for i in self.l[:,:,:]:
                 # print(i)
@@ -627,6 +632,7 @@ class Cube:
             self.l[0,:,[0,2]]=self.l[0,:,[2,0]]
 
         if dir_of_flip=="y":
+            self.historystring+="y"
             # def R(self): # x y z koordináták, z=0 front, x=2 right
             for i in self.l[:,:,:]:
                 # print(i)
