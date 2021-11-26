@@ -15,7 +15,6 @@ def adjust_color_middle_to_face(c, middlecolor, side_to_flip_to, middlesidecolor
     '''
     input: middle cubie szín, hova akarjuk, middle cubie szín, hova akarjuk
     '''
-
     #c.cube_method_did_cubie_move(facekar)
     list_of_cubie_pos_name_color=c.cube_method_get_cubie_pos_name_color()
     # ebben keresem a közepeket, (ezek amiknek a col ban 2 db -1 és egy col van)
@@ -33,12 +32,22 @@ def adjust_color_middle_to_face(c, middlecolor, side_to_flip_to, middlesidecolor
                     dict_of_middles[dict_of_num_color[color]]=tup[0]
     #print(dict_of_middles) # dictben van a color és a position
     dict_of_middle_sides={'L': [0, 1, 1], 'U': [1, 0, 1], 'F': [1, 1, 0], 'B': [1, 1, 2], 'D': [1, 2, 1], 'R': [2, 1, 1]}
-    steps=["x","y","y","y","y","x","y","y","y","y","x","y","y","y","y","x","y","y","y","y","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x","y","x","x","x","x"]
+    steps=["y","y","y","y",
+           "x","y","y","y","y",
+           "x","y","y","y","y",
+           "x","y","y","y","y",
+           "x","y","y","y","y",
+           "x",
+           "y",
+           "x","y","y","y","y",
+           "x","y","y","y","y",
+           "x","y","y","y","y",
+           "x","y","y","y","y",]
     stepper=0
     while dict_of_middles[middlecolor]!=dict_of_middle_sides[side_to_flip_to] or dict_of_middles[middlesidecolor]!=dict_of_middle_sides[middle_side_to_flip_to]:
         c.cube_method_flipper(steps[stepper])
-        list_of_cubie_pos_name_color=c.cube_method_get_cubie_pos_name_color()
-        dict_of_middles={}
+        list_of_cubie_pos_name_color=c.cube_method_get_cubie_pos_name_color() # aktuális állapot
+        # dict_of_middles={} # color : middleactualpos , ha a kért color key re az actual pos == kért hely keyre a kért pos akkor done
         for tup in list_of_cubie_pos_name_color:
             if list(tup[2]).count(-1)==2:
                 # print(tup)

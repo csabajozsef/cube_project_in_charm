@@ -1,6 +1,5 @@
 from csabi11_19algoritmus import *
 
-
 def white_cross(c):
     white_cross_first(c)
     white_cross_second(c)
