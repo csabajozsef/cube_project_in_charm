@@ -114,7 +114,7 @@ class Cube:
         self.l[2,:,:]=self.l[2,:,:].transpose() # jobbra forg T aztán oszlopcsere
         self.l[2,:,[0,2]]=self.l[2,:,[2,0]]
 
-    def L(self):
+    def L_r(self):
         self.historystring+="L"
         for i in self.l[0,:,:]:
             for j in i:
@@ -138,7 +138,7 @@ class Cube:
 
       self.Y_to_X()
 
-    def D(self):
+    def D_r(self):
       self.historystring+="D"
       self.X_to_Y()
 
@@ -166,7 +166,7 @@ class Cube:
 
       self.Z_to_X()
 
-    def B(self):
+    def B_r(self):
       self.historystring+="B"
       self.X_to_Z()
 
@@ -181,34 +181,34 @@ class Cube:
       self.Z_to_X()
 
     def R_r(self):
-      self.historystring+="r"
+      # self.historystring+="r"
       for i in range(3):
         self.R()
 
-    def L_r(self):
-      self.historystring+="l"
+    def L(self):
+      # self.historystring+="l"
       for i in range(3):
-        self.L()
+        self.L_r()
 
     def U_r(self):
-      self.historystring+="u"
+      # self.historystring+="u"
       for i in range(3):
         self.U()
 
-    def D_r(self):
-      self.historystring+="d"
+    def D(self):
+      # self.historystring+="d"
       for i in range(3):
-        self.D()
+        self.D_r()
 
     def F_r(self):
-      self.historystring+="f"
+      # self.historystring+="f"
       for i in range(3):
         self.F()
 
-    def B_r(self):
-      self.historystring+="b"
+    def B(self):
+      # self.historystring+="b"
       for i in range(3):
-        self.B()
+        self.B_r()
 
     def cube_method_mixer(self,steps=20):
     # ebbe jöhet stringsorozat vagy szám
@@ -498,7 +498,7 @@ class Cube:
 
             if string_of_steps!=None:
                 # kell egy léptető a nyilakkal
-                pygame.time.wait(500)
+                pygame.time.wait(1000)
                 current_step_string=string_of_steps[steps_current_pos]
                 if current_step_string=="R":
                     self.R()
@@ -553,6 +553,18 @@ class Cube:
                         self.L()
                     if event.key == pygame.K_r:
                         self.R()
+                    if event.key == pygame.K_1:
+                        self.U_r()
+                    if event.key == pygame.K_2:
+                        self.D_r()
+                    if event.key == pygame.K_3:
+                        self.F_r()
+                    if event.key == pygame.K_4:
+                        self.B_r()
+                    if event.key == pygame.K_5:
+                        self.L_r()
+                    if event.key == pygame.K_6:
+                        self.R_r()
 
                     if event.key == pygame.K_SPACE:
                         pygame.quit()
@@ -684,6 +696,7 @@ class Cube:
 
     def cube_method_get_cubie_pos_name_color(self):
         '''visszadob egy listet amiben tupleként vannak a
+        [] ()
         (kockakoord, ottlévő cubie string,cubie.l) alakban a lekérdezés pillanatában!!
         '''
         list_of_tuples=[]
